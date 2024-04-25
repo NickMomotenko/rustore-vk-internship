@@ -1,5 +1,7 @@
 export const formatDate = (dateString: string) => {
-  let [day, month, year] = dateString.split("-").reverse();
+  if (!dateString) return dateString;
+
+  let [day, month, year] = dateString?.split("-").reverse();
 
   return `${day} ${getMonthNameFromNumber(Number(month) - 1)} ${year}`;
 };

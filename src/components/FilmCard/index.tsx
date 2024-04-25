@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { formatDate, normalizeRatingValue } from "../../helpers/helpers";
 import { FilmTypes } from "../../types/types";
 import "./styled.scss";
@@ -16,7 +17,11 @@ export const FilmCard: React.FC<FilmCardProps> = ({
   colCounter,
   tagName,
   view = "regular",
+  onClick,
+  id,
 }) => {
+  const navigate = useNavigate();
+
   const TagName: any = tagName ? tagName : "div";
   const isRatingView = view === "rating";
 
@@ -24,6 +29,10 @@ export const FilmCard: React.FC<FilmCardProps> = ({
     <TagName
       className="card"
       style={{ maxWidth: `calc(100% / ${colCounter} - 20px)` }}
+      onClick={() => {
+        onClick(id);
+        navigate(`/preview`);
+      }}
     >
       <div className="card__image">
         <img
