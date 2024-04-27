@@ -25,7 +25,7 @@ export const TopRatedContext = createContext<TopRatedContextProps>({
 export const TopRatedProvider: React.FC<TopRatedProviderProps> = ({
   children,
 }) => {
-  const [topRatedData, setTopRatedData] = useState<any>([]);
+  const [topRatedData, setTopRatedData] = useState<{}>({});
 
   const [activeFilm, setActiveFilm] = useState<FilmTypes | {}>({});
 

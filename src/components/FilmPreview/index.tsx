@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import "./styled.scss";
 import { TopRatedContext } from "../../context/TopRatedContext";
 import { formatDate, normalizeRatingValue } from "../../helpers/helpers";
@@ -19,6 +19,10 @@ export const FilmPreview = () => {
     genres,
     backdrop_path,
   }: FilmTypes | any = activeFilm;
+
+  useEffect(() => {
+    console.log(1);
+  }, []);
 
   return (
     <div className="preview">
