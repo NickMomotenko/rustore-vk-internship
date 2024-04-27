@@ -10,7 +10,8 @@ export interface TopRatedContextProps {
   };
   activeFilm: FilmTypes | {};
   isLoadingData: boolean;
-  getRenderedDataByPageNumber: (pageNumber?: number) => void;
+  isLoadingActiveFilmData: boolean;
+  getRenderedDataByPageNumber: (pageNumber?: number | undefined) => void;
   handleChangeActiveFilm: (id: number) => void;
 }
 

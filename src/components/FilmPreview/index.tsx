@@ -8,7 +8,8 @@ import { SkeletonUI } from "../Skeleton/SkeletonPreview";
 import { useParams } from "react-router-dom";
 
 export const FilmPreview = () => {
-  const { activeFilm, handleChangeActiveFilm } = useContext(TopRatedContext);
+  const { activeFilm, handleChangeActiveFilm, isLoadingActiveFilmData } =
+    useContext(TopRatedContext);
 
   const {
     title,
@@ -31,7 +32,7 @@ export const FilmPreview = () => {
     <div className="preview">
       <div className="preview__wrapp">
         <div className="preview__content">
-          {Object.keys(activeFilm).length === 0 ? (
+          {Object.keys(activeFilm).length === 0 || isLoadingActiveFilmData ? (
             <SkeletonUI />
           ) : (
             <>

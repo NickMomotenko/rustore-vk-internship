@@ -18,6 +18,7 @@ export const TopRatedContext = createContext<TopRatedContextProps>({
   },
   activeFilm: {},
   isLoadingData: false,
+  isLoadingActiveFilmData: false,
   getRenderedDataByPageNumber: () => {},
   handleChangeActiveFilm: () => {},
 });
@@ -25,11 +26,12 @@ export const TopRatedContext = createContext<TopRatedContextProps>({
 export const TopRatedProvider: React.FC<TopRatedProviderProps> = ({
   children,
 }) => {
-  const [topRatedData, setTopRatedData] = useState<{}>({});
+  const [topRatedData, setTopRatedData] = useState<any>({});
 
   const [activeFilm, setActiveFilm] = useState<FilmTypes | {}>({});
 
   const [isLoadingData, setIsLoadingData] = useState(false);
+  const [isLoadingActiveFilmData, setIsLoadingActiveFilmData] = useState(false);
 
   const getRenderedDataByPageNumber = async (pageNumber: number) => {
     setIsLoadingData(true);
@@ -43,6 +45,7 @@ export const TopRatedProvider: React.FC<TopRatedProviderProps> = ({
   };
 
   const handleChangeActiveFilm = async (id: number) => {
+    setIsLoadingActiveFilmData(true);
     try {
       let detailsById = await fetchDetailsById(id);
       let recommendationsById = await fetchRecomendationsById(id);
@@ -61,6 +64,8 @@ export const TopRatedProvider: React.FC<TopRatedProviderProps> = ({
     } catch (error) {
       console.log(error);
     }
+
+    setIsLoadingActiveFilmData(false);
   };
 
   return (
@@ -69,6 +74,7 @@ export const TopRatedProvider: React.FC<TopRatedProviderProps> = ({
         topRatedData,
         activeFilm,
         isLoadingData,
+        isLoadingActiveFilmData,
         getRenderedDataByPageNumber,
         handleChangeActiveFilm,
       }}

@@ -54,7 +54,7 @@ export const TopRated = () => {
         />
       </div>
       <List classes="top-rated__list">
-        {!topRatedFilms
+        {!topRatedFilms || isLoadingData
           ? [...new Array(4)].map((_, index) => (
               <SkeletonUI key={index} colCounter={4} tagName="li" />
             ))
