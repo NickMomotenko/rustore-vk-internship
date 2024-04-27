@@ -6,16 +6,16 @@ import { List } from "../../components/List";
 import { FilmCard } from "../../components/FilmCard";
 
 import "./styled.scss";
-import { TopRatedContext } from "../../context/TopRatedContext";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { SkeletonUI } from "../../components/Skeleton";
+import { useFetchedData } from "../../hooks/useFethedData";
 
 export const TopRated = () => {
   const {
     topRatedData: { results: topRatedFilms, total_pages },
     getRenderedDataByPageNumber,
     isLoadingData,
-  } = React.useContext(TopRatedContext);
+  } = useFetchedData();
 
   const {
     currentPage,

@@ -2,15 +2,13 @@ import { Title } from "@vkontakte/vkui";
 import "./styled.scss";
 import { List } from "../../components/List";
 import { FilmCard } from "../../components/FilmCard";
-import { useContext } from "react";
-import { TopRatedContext } from "../../context/TopRatedContext";
-import { FilmTypes } from "../../types/types";
 import { SkeletonUI } from "../../components/Skeleton";
 
-export const Recomendations = () => {
-  const { activeFilm, handleChangeActiveFilm } = useContext(TopRatedContext);
-  const { recommendations }: FilmTypes | any = activeFilm;
+type RecomendationsProps = {
+  data?: [];
+};
 
+export const Recomendations: React.FC<RecomendationsProps> = ({ data }) => {
   return (
     <div className="recomendations">
       <Title level="1" className="title">
@@ -18,16 +16,15 @@ export const Recomendations = () => {
       </Title>
       <div className="recomendations__content">
         <List classes="recomendations__list">
-          {recommendations
-            ? recommendations
-                .slice(0, 4)
+          {data?.length
+            ? data
+                ?.slice(0, 4)
                 ?.map((filmData: any) => (
                   <FilmCard
                     key={filmData.id}
                     tagName="li"
                     view="rating"
                     colCounter={4}
-                    onClick={handleChangeActiveFilm}
                     {...filmData}
                   />
                 ))

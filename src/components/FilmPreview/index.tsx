@@ -1,15 +1,19 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import "./styled.scss";
-import { TopRatedContext } from "../../context/TopRatedContext";
 import { formatDate, normalizeRatingValue } from "../../helpers/helpers";
 import { FilmTypes } from "../../types/types";
 import { Recomendations } from "../../containers/Recomendations";
 import { SkeletonUI } from "../Skeleton/SkeletonPreview";
 import { useParams } from "react-router-dom";
+import { useFetchedActiveFilm } from "../../hooks/useFetchedActiveFilm";
+import { useFetchedRecomendations } from "../../hooks/useFetchedRecomendations";
 
 export const FilmPreview = () => {
-  const { activeFilm, handleChangeActiveFilm, isLoadingActiveFilmData } =
-    useContext(TopRatedContext);
+  const { activeFilm, isLoadingData, handleChangeActiveFilm } =
+    useFetchedActiveFilm();
+
+  const { recomendationsData, getRecomendationsData } =
+    useFetchedRecomendations();
 
   const {
     title,
@@ -26,13 +30,14 @@ export const FilmPreview = () => {
 
   useEffect(() => {
     handleChangeActiveFilm(Number(id));
+    getRecomendationsData(Number(id));
   }, [id]);
 
   return (
     <div className="preview">
       <div className="preview__wrapp">
         <div className="preview__content">
-          {Object.keys(activeFilm).length === 0 || isLoadingActiveFilmData ? (
+          {Object.keys(activeFilm).length === 0 || isLoadingData ? (
             <SkeletonUI />
           ) : (
             <>
@@ -78,7 +83,7 @@ export const FilmPreview = () => {
         </div>
       </div>
       <div className="preview__recomendations">
-        <Recomendations />
+        <Recomendations data={recomendationsData} />
       </div>
     </div>
   );
