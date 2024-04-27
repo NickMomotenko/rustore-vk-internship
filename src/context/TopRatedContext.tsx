@@ -10,7 +10,12 @@ import {
 import { FilmTypes } from "../types/types";
 
 export const TopRatedContext = createContext<TopRatedContextProps>({
-  topRatedData: {},
+  topRatedData: {
+    results: [],
+    page: 0,
+    total_pages: 0,
+    total_results: 0,
+  },
   activeFilm: {},
   isLoadingData: false,
   getRenderedDataByPageNumber: () => {},
@@ -25,8 +30,6 @@ export const TopRatedProvider: React.FC<TopRatedProviderProps> = ({
   const [activeFilm, setActiveFilm] = useState<FilmTypes | {}>({});
 
   const [isLoadingData, setIsLoadingData] = useState(false);
-
-  const [currentPage, setCurrentPage] = useState(null);
 
   const getRenderedDataByPageNumber = async (pageNumber: number) => {
     setIsLoadingData(true);

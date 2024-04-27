@@ -1,0 +1,25 @@
+.skeleton {
+  &-wrapp {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+  }
+
+  &-poster {
+    height: 380px;
+    max-height: 100%;
+    margin-bottom: 10px;
+
+    &--preview {
+      margin-bottom: 0;
+    }
+  }
+
+  &-field {
+    margin-bottom: 5px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

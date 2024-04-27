@@ -8,6 +8,7 @@ import { FilmCard } from "../../components/FilmCard";
 import "./styled.scss";
 import { TopRatedContext } from "../../context/TopRatedContext";
 import React, { useEffect } from "react";
+import { SkeletonUI } from "../../components/Skeleton";
 
 export const TopRated = () => {
   const {
@@ -54,17 +55,22 @@ export const TopRated = () => {
         />
       </div>
       <List classes="top-rated__list">
-        {topRatedFilms &&
-          topRatedFilms?.map((filmData: any) => (
-            <FilmCard
-              key={filmData.id}
-              tagName="li"
-              view="rating"
-              colCounter={4}
-              onClick={handleChangeActiveFilm}
-              {...filmData}
-            />
-          ))}
+        {topRatedFilms && !isLoadingData
+          ? topRatedFilms
+              .slice(0, 4)
+              ?.map((filmData: any) => (
+                <FilmCard
+                  key={filmData.id}
+                  tagName="li"
+                  view="rating"
+                  colCounter={4}
+                  onClick={handleChangeActiveFilm}
+                  {...filmData}
+                />
+              ))
+          : [...new Array(4)].map((_, index) => (
+              <SkeletonUI key={index} colCounter={4} tagName="li" />
+            ))}
       </List>
     </div>
   );

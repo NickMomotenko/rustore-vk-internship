@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { formatDate, normalizeRatingValue } from "../../helpers/helpers";
 import { FilmTypes } from "../../types/types";
 import "./styled.scss";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 type FilmCardProps = FilmTypes & {
   colCounter: number;
@@ -20,10 +22,10 @@ export const FilmCard: React.FC<FilmCardProps> = ({
   onClick,
   id,
 }) => {
-  const navigate = useNavigate();
-
   const TagName: any = tagName ? tagName : "div";
   const isRatingView = view === "rating";
+
+  const navigate = useNavigate();
 
   return (
     <TagName
@@ -31,7 +33,7 @@ export const FilmCard: React.FC<FilmCardProps> = ({
       style={{ maxWidth: `calc(100% / ${colCounter} - 20px)` }}
       onClick={() => {
         onClick(id);
-        navigate(`/preview`);
+        navigate("/preview");
       }}
     >
       <div className="card__image">
@@ -39,6 +41,7 @@ export const FilmCard: React.FC<FilmCardProps> = ({
           src={`https://image.tmdb.org/t/p/w200${poster_path}`}
           alt=""
           className="card__image-src"
+          loading="lazy"
         />
       </div>
       <div className="card__info">
