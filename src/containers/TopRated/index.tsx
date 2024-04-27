@@ -10,19 +10,33 @@ import { TopRatedContext } from "../../context/TopRatedContext";
 import React, { useEffect } from "react";
 
 export const TopRated = () => {
-  const { currentPage, siblingCount, boundaryCount, totalPages, handleChange } =
-    usePaginator();
-
   const {
-    topRatedData,
+    topRatedData: { results: topRatedFilms, total_pages },
     getRenderedDataByPageNumber,
     handleChangeActiveFilm,
     isLoadingData,
   } = React.useContext(TopRatedContext);
 
+  const {
+    currentPage,
+    siblingCount,
+    boundaryCount,
+    totalPages,
+    handleChange,
+    updateTotalPages,
+    updatePageNumber,
+  } = usePaginator({});
+
   useEffect(() => {
     getRenderedDataByPageNumber(currentPage);
+    updatePageNumber(currentPage);
   }, [currentPage]);
+
+  useEffect(() => {
+    if (total_pages) {
+      updateTotalPages(total_pages);
+    }
+  }, [total_pages]);
 
   return (
     <div className="top-rated">
@@ -40,8 +54,8 @@ export const TopRated = () => {
         />
       </div>
       <List classes="top-rated__list">
-        {topRatedData &&
-          topRatedData?.map((filmData: any) => (
+        {topRatedFilms &&
+          topRatedFilms?.map((filmData: any) => (
             <FilmCard
               key={filmData.id}
               tagName="li"

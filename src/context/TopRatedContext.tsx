@@ -2,11 +2,15 @@ import React, { createContext, useState } from "react";
 
 import { TopRatedContextProps, TopRatedProviderProps } from "./types";
 
-import { fetchDetailsById, fetchRecomendationsById, fetchTopRatedFilms } from "../api/api";
+import {
+  fetchDetailsById,
+  fetchRecomendationsById,
+  fetchTopRatedFilms,
+} from "../api/api";
 import { FilmTypes } from "../types/types";
 
 export const TopRatedContext = createContext<TopRatedContextProps>({
-  topRatedData: [],
+  topRatedData: {},
   activeFilm: {},
   isLoadingData: false,
   getRenderedDataByPageNumber: () => {},
@@ -16,40 +20,43 @@ export const TopRatedContext = createContext<TopRatedContextProps>({
 export const TopRatedProvider: React.FC<TopRatedProviderProps> = ({
   children,
 }) => {
-  const [topRatedData, setTopRatedData] = useState<FilmTypes[]>([]);
-  const [topRatedRenderedData, setTopRatedRenderedData] = useState<FilmTypes[]>(
-    []
-  );
+  const [topRatedData, setTopRatedData] = useState<any>([]);
 
   const [activeFilm, setActiveFilm] = useState<FilmTypes | {}>({});
 
   const [isLoadingData, setIsLoadingData] = useState(false);
 
+  const [currentPage, setCurrentPage] = useState(null);
+
   const getRenderedDataByPageNumber = async (pageNumber: number) => {
     setIsLoadingData(true);
-    let { results } = await fetchTopRatedFilms(pageNumber ?? pageNumber);
+    let data = await fetchTopRatedFilms(pageNumber ?? pageNumber);
 
-    if (results) {
-      setTopRatedData(results);
+    if (data) {
+      setTopRatedData(data);
     } else console.log(2);
 
     setIsLoadingData(false);
   };
 
   const handleChangeActiveFilm = async (id: number) => {
-    const searchableFilm: any = topRatedData.find((film) => film.id === id);
+    const searchableFilm = topRatedData?.results.find(
+      (film: FilmTypes) => film.id === id
+    );
 
     if (searchableFilm) {
       let detailsById = await fetchDetailsById(id);
       let recommendationsById = await fetchRecomendationsById(id);
 
-      if (detailsById) {
+      if (detailsById && recommendationsById) {
         const { runtime, genres } = detailsById;
+        const { results } = recommendationsById;
 
         let updatedFilmData = {
           ...searchableFilm,
           runtime,
-          genres: genres.map(({ name }: any) => name).join(","),
+          genres: genres.map(({ name }: any) => name).join(", "),
+          recommendations: results,
         };
 
         setActiveFilm(updatedFilmData);

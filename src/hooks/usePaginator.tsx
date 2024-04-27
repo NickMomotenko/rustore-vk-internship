@@ -1,16 +1,29 @@
 import React from "react";
 import { useState } from "react";
 
-export const usePaginator = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [siblingCount, setSiblingCount] = useState(0);
-  const [boundaryCount, setBoundaryCount] = useState(1);
-  const [totalPages, setTotalPages] = useState(123);
-  const [disabled, setDisabled] = useState(false);
+type Props = {
+  page?: number | any;
+  totalPages?: number | any;
+};
+
+export const usePaginator = ({ page, totalPages: total }: Props) => {
+  const [currentPage, setCurrentPage] = useState<number>(page ?? page);
+  const [siblingCount, setSiblingCount] = useState<number>(0);
+  const [boundaryCount, setBoundaryCount] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(total ?? total);
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   const handleChange = React.useCallback((page: number) => {
     setCurrentPage(page);
   }, []);
+
+  const updateTotalPages = (total_pages: number) => {
+    setTotalPages(total_pages);
+  };
+
+  const updatePageNumber = (pageValue: number) => {
+    setCurrentPage(pageValue);
+  };
 
   return {
     currentPage,
@@ -19,5 +32,7 @@ export const usePaginator = () => {
     totalPages,
     disabled,
     handleChange,
+    updateTotalPages,
+    updatePageNumber,
   };
 };
