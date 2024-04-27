@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { formatDate, normalizeRatingValue } from "../../helpers/helpers";
 import { FilmTypes } from "../../types/types";
 import "./styled.scss";
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 type FilmCardProps = FilmTypes & {
@@ -31,10 +30,7 @@ export const FilmCard: React.FC<FilmCardProps> = ({
     <TagName
       className="card"
       style={{ maxWidth: `calc(100% / ${colCounter} - 20px)` }}
-      onClick={() => {
-        onClick(id);
-        navigate("/preview");
-      }}
+      onClick={() => navigate(`/preview/${id}`)}
     >
       <div className="card__image">
         <img

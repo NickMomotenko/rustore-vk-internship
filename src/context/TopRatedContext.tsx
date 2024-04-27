@@ -43,28 +43,24 @@ export const TopRatedProvider: React.FC<TopRatedProviderProps> = ({
   };
 
   const handleChangeActiveFilm = async (id: number) => {
-    const searchableFilm = topRatedData?.results.find(
-      (film: FilmTypes) => film.id === id
-    );
-
-    if (searchableFilm) {
+    try {
       let detailsById = await fetchDetailsById(id);
       let recommendationsById = await fetchRecomendationsById(id);
 
-      if (detailsById && recommendationsById) {
-        const { runtime, genres } = detailsById;
+      if (detailsById) {
         const { results } = recommendationsById;
 
         let updatedFilmData = {
-          ...searchableFilm,
-          runtime,
-          genres: genres.map(({ name }: any) => name).join(", "),
+          ...detailsById,
+          genres: detailsById?.genres.map(({ name }: any) => name).join(", "),
           recommendations: results,
         };
 
         setActiveFilm(updatedFilmData);
-      } else console.log(2);
-    } else return;
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

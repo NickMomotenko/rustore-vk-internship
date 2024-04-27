@@ -13,7 +13,7 @@ export const fetchTopRatedFilms = async (pageNumber: number = 1) => {
 
   try {
     const response = await fetch(
-      `https://api.themoviedb.org/3/movie/top_rated?languge=ru-RU&page=${pageNumber}`,
+      `https://api.themoviedb.org/3/movie/top_rated?language=ru-RU&page=${pageNumber}`,
       options
     );
     const data = await response.json();

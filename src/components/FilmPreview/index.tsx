@@ -5,9 +5,10 @@ import { formatDate, normalizeRatingValue } from "../../helpers/helpers";
 import { FilmTypes } from "../../types/types";
 import { Recomendations } from "../../containers/Recomendations";
 import { SkeletonUI } from "../Skeleton/SkeletonPreview";
+import { useParams } from "react-router-dom";
 
 export const FilmPreview = () => {
-  const { activeFilm } = useContext(TopRatedContext);
+  const { activeFilm, handleChangeActiveFilm } = useContext(TopRatedContext);
 
   const {
     title,
@@ -20,9 +21,11 @@ export const FilmPreview = () => {
     backdrop_path,
   }: FilmTypes | any = activeFilm;
 
+  const { id } = useParams();
+
   useEffect(() => {
-    console.log(1);
-  }, []);
+    handleChangeActiveFilm(Number(id));
+  }, [id]);
 
   return (
     <div className="preview">

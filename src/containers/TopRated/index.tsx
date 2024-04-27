@@ -14,7 +14,6 @@ export const TopRated = () => {
   const {
     topRatedData: { results: topRatedFilms, total_pages },
     getRenderedDataByPageNumber,
-    handleChangeActiveFilm,
     isLoadingData,
   } = React.useContext(TopRatedContext);
 
@@ -55,22 +54,21 @@ export const TopRated = () => {
         />
       </div>
       <List classes="top-rated__list">
-        {topRatedFilms && !isLoadingData
-          ? topRatedFilms
-              .slice(0, 4)
+        {!topRatedFilms
+          ? [...new Array(4)].map((_, index) => (
+              <SkeletonUI key={index} colCounter={4} tagName="li" />
+            ))
+          : topRatedFilms
+              ?.slice(0, 4)
               ?.map((filmData: any) => (
                 <FilmCard
                   key={filmData.id}
                   tagName="li"
                   view="rating"
                   colCounter={4}
-                  onClick={handleChangeActiveFilm}
                   {...filmData}
                 />
-              ))
-          : [...new Array(4)].map((_, index) => (
-              <SkeletonUI key={index} colCounter={4} tagName="li" />
-            ))}
+              ))}
       </List>
     </div>
   );
