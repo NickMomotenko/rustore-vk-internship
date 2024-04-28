@@ -1,5 +1,6 @@
 .card {
   max-width: 100%;
+
   width: 100%;
   margin-bottom: 20px;
   border: 1px solid #856fbf36;
@@ -18,12 +19,13 @@
   &__image {
     overflow: hidden;
     max-height: 380px;
-    height: 100%;
+    height: 330px;
 
     &-src {
       transition: transform 0.4s;
       width: 100%;
       height: 100%;
+      object-fit: cover;
     }
   }
 
