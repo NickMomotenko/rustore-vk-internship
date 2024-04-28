@@ -1,3 +1,10 @@
+export type FetchedDataTypes = {
+  results?: FilmTypes[];
+  page?: number;
+  total_pages?: number;
+  total_results?: number;
+};
+
 export type FilmTypes = {
   adult: boolean;
   backdrop_path: string;
