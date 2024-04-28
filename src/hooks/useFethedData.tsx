@@ -7,9 +7,10 @@ export const useFetchedData = () => {
 
   const getRenderedDataByPageNumber = async (pageNumber: number) => {
     setIsLoadingData(true);
-    let { data } = await fetchTopRatedFilms(pageNumber ?? pageNumber);
 
-    if (data) {
+    let data = await fetchTopRatedFilms(pageNumber ?? pageNumber);
+
+    if (data && data?.results) {
       setTopRatedData(data);
     } else {
       alert(

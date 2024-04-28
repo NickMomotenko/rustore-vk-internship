@@ -10,19 +10,20 @@ export const useFetchedActiveFilm = () => {
 
   const handleChangeActiveFilm = async (id: number) => {
     setIsLoadingData(true);
-    try {
-      let detailsById = await fetchDetailsById(id);
 
-      if (detailsById) {
-        let updatedFilmData = {
-          ...detailsById,
-          genres: detailsById?.genres.map(({ name }: any) => name).join(", "),
-        };
+    let detailsById = await fetchDetailsById(id);
 
-        setActiveFilm(updatedFilmData);
-      }
-    } catch (error) {
-      alert("Ошибка..скорее всего сервер ушел на покой ). Попробуй включить VPN, возможно что то изменится");
+    if (Object.keys(detailsById).length !== 0) {
+      let updatedFilmData = {
+        ...detailsById,
+        genres: detailsById?.genres.map(({ name }: any) => name).join(", "),
+      };
+
+      setActiveFilm(updatedFilmData);
+    } else {
+      alert(
+        "Не могу загрузить фильм. Попробуй включить VPN, возможно что то изменится"
+      );
     }
 
     setIsLoadingData(false);

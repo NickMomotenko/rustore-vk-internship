@@ -13,16 +13,16 @@ export const useFetchedRecomendations = () => {
   const getRecomendationsData = async (id: number) => {
     setIsLoadingData(true);
 
-    try {
-      let recommendationsById = await fetchRecomendationsById(id);
+    let recommendationsById = await fetchRecomendationsById(id);
 
-      if (recommendationsById) {
-        const { results } = recommendationsById;
+    if (recommendationsById && recommendationsById?.results) {
+      const { results } = recommendationsById;
 
-        setRecomendationsData(results);
-      }
-    } catch (error) {
-      alert("Ошибка..скорее всего сервер ушел на покой ). Попробуй включить VPN, возможно что то изменится");
+      setRecomendationsData(results);
+    } else {
+      alert(
+        "Не могу загрузить рекомендации. Попробуй включить VPN, возможно что то изменится"
+      );
     }
 
     setIsLoadingData(false);

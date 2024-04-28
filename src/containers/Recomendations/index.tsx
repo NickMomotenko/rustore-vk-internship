@@ -24,7 +24,7 @@ export const Recomendations: React.FC<RecomendationsProps> = ({
       </Title>
       <div className="recomendations__content">
         <List classes="recomendations__list">
-          {!data || isLoading
+          {!data?.length || isLoading
             ? [...new Array(4)].map((_, index) => (
                 <SkeletonUI key={index} colCounter={4} tagName="li" />
               ))
