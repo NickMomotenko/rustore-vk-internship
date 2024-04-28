@@ -7,11 +7,15 @@ export const useFetchedData = () => {
 
   const getRenderedDataByPageNumber = async (pageNumber: number) => {
     setIsLoadingData(true);
-    let data = await fetchTopRatedFilms(pageNumber ?? pageNumber);
+    let { data } = await fetchTopRatedFilms(pageNumber ?? pageNumber);
 
     if (data) {
       setTopRatedData(data);
-    } else console.log(2);
+    } else {
+      alert(
+        "Ошибка..скорее всего сервер ушел на покой ). Попробуй включить VPN, возможно что то изменится"
+      );
+    }
 
     setIsLoadingData(false);
   };

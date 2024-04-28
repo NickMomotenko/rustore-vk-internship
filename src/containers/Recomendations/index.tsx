@@ -4,10 +4,12 @@ import { List } from "../../components/List";
 import { FilmCard } from "../../components/FilmCard";
 import { SkeletonUI } from "../../components/Skeleton";
 
+import { FilmTypes } from "../../types/types";
+
 import "./styled.scss";
 
 type RecomendationsProps = {
-  data?: [];
+  data?: FilmTypes[];
   isLoading?: boolean;
 };
 

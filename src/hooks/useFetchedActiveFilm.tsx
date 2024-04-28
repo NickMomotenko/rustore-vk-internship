@@ -22,7 +22,7 @@ export const useFetchedActiveFilm = () => {
         setActiveFilm(updatedFilmData);
       }
     } catch (error) {
-      console.log(error);
+      alert("Ошибка..скорее всего сервер ушел на покой ). Попробуй включить VPN, возможно что то изменится");
     }
 
     setIsLoadingData(false);
