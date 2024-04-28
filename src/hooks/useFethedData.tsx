@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { fetchTopRatedFilms } from "../api/api";
-import { FetchedDataTypes, FilmTypes } from "../types/types";
+import { FetchedDataTypes } from "../types/types";
 
 export const useFetchedData = () => {
   const [topRatedData, setTopRatedData] = useState<FetchedDataTypes>({});
