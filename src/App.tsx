@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import { Container } from "./components/Container";
 
@@ -14,6 +14,8 @@ export const App = () => {
         <Routes>
           <Route path="/" element={<TopRated />} />
           <Route path="/preview/:id" element={<FilmPreview />} />
+          
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Container>
     </div>
