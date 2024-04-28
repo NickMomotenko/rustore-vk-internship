@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   page?: number | any;
@@ -6,11 +7,13 @@ type Props = {
 };
 
 export const usePaginator = ({ page, totalPages: total }: Props) => {
-  const [currentPage, setCurrentPage] = useState<number>(page ?? page);
+  const [currentPage, setCurrentPage] = useState<number>(page ? page : 1);
   const [siblingCount, setSiblingCount] = useState<number>(0);
   const [boundaryCount, setBoundaryCount] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(total ?? total);
   const [disabled, setDisabled] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   const handleChange = useCallback((page: number) => {
     setCurrentPage(page);
@@ -20,10 +23,9 @@ export const usePaginator = ({ page, totalPages: total }: Props) => {
     setTotalPages(total_pages);
   };
 
-  const updatePageNumber = (pageValue: number) => {
-    setCurrentPage(pageValue);
+  const updatePageUrl = (pageValue: number) => {
+    navigate(`/${pageValue}`);
   };
-
   return {
     currentPage,
     siblingCount,
@@ -32,6 +34,6 @@ export const usePaginator = ({ page, totalPages: total }: Props) => {
     disabled,
     handleChange,
     updateTotalPages,
-    updatePageNumber,
+    updatePageUrl,
   };
 };

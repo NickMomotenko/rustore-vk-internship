@@ -19,12 +19,6 @@ export const FilmPreview = () => {
     useFetchedActiveFilm();
 
   const {
-    recomendationsData,
-    isLoadingData: isRecomendationsDataLoading,
-    getRecomendationsData,
-  } = useFetchedRecomendations();
-
-  const {
     title,
     overview,
     vote_average,
@@ -33,13 +27,13 @@ export const FilmPreview = () => {
     runtime,
     genres,
     backdrop_path,
+    recomendations,
   }: FilmTypes | any = activeFilm;
 
   const { id } = useParams();
 
   useEffect(() => {
     handleChangeActiveFilm(Number(id));
-    getRecomendationsData(Number(id));
   }, [id]);
 
   return (
@@ -92,10 +86,7 @@ export const FilmPreview = () => {
         </div>
       </div>
       <div className="preview__recomendations">
-        <Recomendations
-          isLoading={isRecomendationsDataLoading}
-          data={recomendationsData}
-        />
+        <Recomendations isLoading={isLoadingData} data={recomendations} />
       </div>
     </div>
   );

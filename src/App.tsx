@@ -14,7 +14,7 @@ export const App = () => {
         <Routes>
           <Route path="/" element={<TopRated />} />
           <Route path="/preview/:id" element={<FilmPreview />} />
-          
+
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Container>

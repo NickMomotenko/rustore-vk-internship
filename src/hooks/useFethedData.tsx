@@ -1,22 +1,30 @@
 import { useState } from "react";
 import { fetchTopRatedFilms } from "../api/api";
 import { FetchedDataTypes } from "../types/types";
+import { useLocalStorage } from "./useLocaleStorage";
 
 export const useFetchedData = () => {
   const [topRatedData, setTopRatedData] = useState<FetchedDataTypes>({});
   const [isLoadingData, setIsLoadingData] = useState(false);
 
+  const { data: topRatedStorage, setData } = useLocalStorage("topFilms", {});
+
   const getRenderedDataByPageNumber = async (pageNumber: number) => {
     setIsLoadingData(true);
 
-    let data = await fetchTopRatedFilms(pageNumber ?? pageNumber);
-
-    if (data && data?.results) {
-      setTopRatedData(data);
+    if (topRatedStorage && topRatedStorage?.page === pageNumber) {
+      setTopRatedData(topRatedStorage);
     } else {
-      alert(
-        "Ошибка..скорее всего сервер ушел на покой ). Попробуй включить VPN, возможно что то изменится"
-      );
+      let data = await fetchTopRatedFilms(pageNumber ?? pageNumber);
+
+      if (data && data?.results) {
+        setData(data);
+        setTopRatedData(data);
+      } else {
+        alert(
+          "Ошибка..скорее всего сервер ушел на покой ). Попробуй включить VPN, возможно что то изменится"
+        );
+      }
     }
 
     setIsLoadingData(false);

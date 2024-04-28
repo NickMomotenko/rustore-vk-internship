@@ -19,6 +19,8 @@ export const useFetchedRecomendations = () => {
       const { results } = recommendationsById;
 
       setRecomendationsData(results);
+
+      return results;
     } else {
       alert(
         "Не могу загрузить рекомендации. Попробуй включить VPN, возможно что то изменится"

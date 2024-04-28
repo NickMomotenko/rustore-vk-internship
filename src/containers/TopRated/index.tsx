@@ -10,8 +10,11 @@ import { usePaginator } from "../../hooks/usePaginator";
 import { useFetchedData } from "../../hooks/useFethedData";
 
 import "./styled.scss";
+import { useLocalStorage } from "../../hooks/useLocaleStorage";
 
 export const TopRated = () => {
+  const { data: localeStorageData } = useLocalStorage("topFilms", {});
+
   const {
     topRatedData: { results: topRatedFilms, total_pages },
     getRenderedDataByPageNumber,
@@ -25,12 +28,11 @@ export const TopRated = () => {
     totalPages,
     handleChange,
     updateTotalPages,
-    updatePageNumber,
-  } = usePaginator({});
+  } = usePaginator({ page: localeStorageData?.page });
 
   useEffect(() => {
     getRenderedDataByPageNumber(currentPage);
-    updatePageNumber(currentPage);
+    handleChange(currentPage);
   }, [currentPage]);
 
   useEffect(() => {
