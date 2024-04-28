@@ -1,19 +1,28 @@
 import { useEffect } from "react";
-import "./styled.scss";
-import { formatDate, normalizeRatingValue } from "../../helpers/helpers";
-import { FilmTypes } from "../../types/types";
-import { Recomendations } from "../../containers/Recomendations";
-import { SkeletonUI } from "../Skeleton/SkeletonPreview";
 import { useParams } from "react-router-dom";
+
+import { Recomendations } from "../Recomendations";
+
+import { SkeletonUI } from "../../components/Skeleton/SkeletonPreview";
+
+import { formatDate, normalizeRatingValue } from "../../helpers/helpers";
+
+import { FilmTypes } from "../../types/types";
+
 import { useFetchedActiveFilm } from "../../hooks/useFetchedActiveFilm";
 import { useFetchedRecomendations } from "../../hooks/useFetchedRecomendations";
+
+import "./styled.scss";
 
 export const FilmPreview = () => {
   const { activeFilm, isLoadingData, handleChangeActiveFilm } =
     useFetchedActiveFilm();
 
-  const { recomendationsData, getRecomendationsData } =
-    useFetchedRecomendations();
+  const {
+    recomendationsData,
+    isLoadingData: isRecomendationsDataLoading,
+    getRecomendationsData,
+  } = useFetchedRecomendations();
 
   const {
     title,
@@ -74,7 +83,7 @@ export const FilmPreview = () => {
                 <div className="preview__poster">
                   <img
                     src={`https://image.tmdb.org/t/p/w500${backdrop_path}`}
-                    alt=""
+                    alt={`Poster - ${title}`}
                   />
                 </div>
               </div>
@@ -83,7 +92,10 @@ export const FilmPreview = () => {
         </div>
       </div>
       <div className="preview__recomendations">
-        <Recomendations data={recomendationsData} />
+        <Recomendations
+          isLoading={isRecomendationsDataLoading}
+          data={recomendationsData}
+        />
       </div>
     </div>
   );

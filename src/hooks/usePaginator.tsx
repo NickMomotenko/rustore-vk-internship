@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 type Props = {
   page?: number | any;
@@ -13,7 +12,7 @@ export const usePaginator = ({ page, totalPages: total }: Props) => {
   const [totalPages, setTotalPages] = useState<number>(total ?? total);
   const [disabled, setDisabled] = useState<boolean>(false);
 
-  const handleChange = React.useCallback((page: number) => {
+  const handleChange = useCallback((page: number) => {
     setCurrentPage(page);
   }, []);
 

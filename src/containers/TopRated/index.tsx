@@ -1,14 +1,15 @@
+import { useEffect } from "react";
+
 import { Pagination, Title } from "@vkontakte/vkui";
 
-import { usePaginator } from "../../hooks/usePaginator";
-
-import { List } from "../../components/List";
 import { FilmCard } from "../../components/FilmCard";
+import { SkeletonUI } from "../../components/Skeleton";
+import { List } from "../../components/List";
+
+import { usePaginator } from "../../hooks/usePaginator";
+import { useFetchedData } from "../../hooks/useFethedData";
 
 import "./styled.scss";
-import { useEffect } from "react";
-import { SkeletonUI } from "../../components/Skeleton";
-import { useFetchedData } from "../../hooks/useFethedData";
 
 export const TopRated = () => {
   const {

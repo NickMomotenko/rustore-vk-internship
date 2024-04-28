@@ -1,22 +1,20 @@
-import "@vkontakte/vkui/dist/vkui.css";
+import { Route, Routes } from "react-router-dom";
 
 import { Container } from "./components/Container";
 
 import { TopRated } from "./containers/TopRated";
-import { TopRatedProvider } from "./context/TopRatedContext";
-import { Route, Routes } from "react-router-dom";
-import { FilmPreview } from "./components/FilmPreview";
+import { FilmPreview } from "./containers/FilmPreview";
+
+import "@vkontakte/vkui/dist/vkui.css";
 
 export const App = () => {
   return (
     <div className="app">
       <Container>
-        <TopRatedProvider>
-          <Routes>
-            <Route path="/" element={<TopRated />} />
-            <Route path="/preview/:id" element={<FilmPreview />} />
-          </Routes>
-        </TopRatedProvider>
+        <Routes>
+          <Route path="/" element={<TopRated />} />
+          <Route path="/preview/:id" element={<FilmPreview />} />
+        </Routes>
       </Container>
     </div>
   );

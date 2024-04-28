@@ -2,7 +2,7 @@ import { useState } from "react";
 import { fetchTopRatedFilms } from "../api/api";
 
 export const useFetchedData = () => {
-  const [topRatedData, setTopRatedData] = useState<any>({});
+  const [topRatedData, setTopRatedData] = useState<{}>({});
   const [isLoadingData, setIsLoadingData] = useState(false);
 
   const getRenderedDataByPageNumber = async (pageNumber: number) => {

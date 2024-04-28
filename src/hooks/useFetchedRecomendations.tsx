@@ -1,9 +1,13 @@
 import { useState } from "react";
+
 import { fetchRecomendationsById } from "../api/api";
-// import { fetchTopRatedFilms } from "../api/api";
+
+import { FilmTypes } from "../types/types";
 
 export const useFetchedRecomendations = () => {
-  const [recomendationsData, setRecomendationsData] = useState<any>({});
+  const [recomendationsData, setRecomendationsData] = useState<
+    FilmTypes[] | []
+  >([]);
   const [isLoadingData, setIsLoadingData] = useState(false);
 
   const getRecomendationsData = async (id: number) => {

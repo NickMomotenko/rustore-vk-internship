@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { fetchDetailsById, fetchRecomendationsById } from "../api/api";
+
+import { fetchDetailsById } from "../api/api";
+
 import { FilmTypes } from "../types/types";
 
 export const useFetchedActiveFilm = () => {

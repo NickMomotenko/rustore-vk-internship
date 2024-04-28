@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom";
+
 import { formatDate, normalizeRatingValue } from "../../helpers/helpers";
+
 import { FilmTypes } from "../../types/types";
-import "./styled.scss";
+
 import "react-loading-skeleton/dist/skeleton.css";
+import "./styled.scss";
 
 type FilmCardProps = FilmTypes & {
   colCounter: number;
@@ -18,7 +21,6 @@ export const FilmCard: React.FC<FilmCardProps> = ({
   colCounter,
   tagName,
   view = "regular",
-  onClick,
   id,
 }) => {
   const TagName: any = tagName ? tagName : "div";
@@ -35,7 +37,7 @@ export const FilmCard: React.FC<FilmCardProps> = ({
       <div className="card__image">
         <img
           src={`https://image.tmdb.org/t/p/w200${poster_path}`}
-          alt=""
+          alt={`Poster - ${title}`}
           className="card__image-src"
           loading="lazy"
         />
